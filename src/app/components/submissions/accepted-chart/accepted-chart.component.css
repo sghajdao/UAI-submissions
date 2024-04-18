@@ -1,0 +1,12 @@
+#chart {
+    width: 100%;
+}
+
+.card {
+    width: 100%;
+}
+
+.right {
+    margin-right: -18px;
+    cursor: pointer;
+}

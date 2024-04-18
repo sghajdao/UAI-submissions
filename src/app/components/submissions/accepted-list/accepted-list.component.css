@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+button {
+    margin-top: -10px;
+}
+
+mat-icon {
+    font-size: 33px;
+}
+

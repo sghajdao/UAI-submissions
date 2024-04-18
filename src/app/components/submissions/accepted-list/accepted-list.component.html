@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-body">
+        <div class="header">
+            <h5 class="card-title">Accepted submissions</h5>
+            <form class="d-flex search" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="search" (ngModelChange)="onSearch()">
+            </form>
+            <button *ngIf="!open" (click)="openAll()" mat-icon-button color="primary" matTooltip="open all" aria-label="Example icon button with a menu icon">
+                <mat-icon class="d-flex justify-content-center align-items-center">expand_more</mat-icon>
+            </button>
+            <button *ngIf="open" (click)="closeAll()" mat-icon-button color="primary" matTooltip="close all" aria-label="Example icon button with a menu icon">
+                <mat-icon class="d-flex justify-content-center align-items-center">expand_less</mat-icon>
+            </button>
+        </div>
+        
+        <div style="padding-top: 15px;" *ngIf="list.length">
+            <mat-accordion multi>
+                <mat-expansion-panel *ngFor="let item of list; let i = index" (opened)="panelOpenState[i] = true"
+                                     (closed)="panelOpenState[i] = false">
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <strong>Student Id</strong>&emsp;{{item.stud_id}}
+                    </mat-panel-title>
+                    <mat-panel-description class="d-flex justify-content-center">
+                        {{panelOpenState[i] ? 'open' : 'closed'}}
+                    </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div style="display: flex;">
+                        <div style="width: 150px;">
+                            <p style="font-weight: 600;">Course code</p>
+                            <p style="font-weight: 600;">Submission date</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 500;">{{item.crscode}}</p>
+                            <p style="font-weight: 500;">{{item.submission_dte.toDateString()}}</p>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <mat-icon (click)="toRejected()" style="float: right;cursor: pointer;" matTooltip="Rejected" class="right">chevron_right</mat-icon>
+    </div>
+</div>

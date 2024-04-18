@@ -1,0 +1,33 @@
+<div class="page">
+  <div style="display: flex;">
+    <div style="padding-right: 5px;width: 50%;">
+      <app-counter></app-counter>
+    </div>
+    <div class="flip-card" id="myFlipCard" style="padding-left: 5px;width: 50%;">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <app-accepted-chart *ngIf="accepted" (rejected)="toRjected($event)"></app-accepted-chart>
+        </div>
+        <div class="flip-card-back">
+          <app-rejected-chart *ngIf="rejected" (accepted)="toAccepted($event)"></app-rejected-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding-top: 10px;display: flex;">
+    <div style="padding-right: 5px;width: 50%;">
+      <app-pending-list></app-pending-list>
+    </div>
+    <div class="flip-card" id="myFlipList" style="padding-left: 5px;width: 50%;">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <app-accepted-list *ngIf="acceptedList" (rejected)="toRejectedList($event)"></app-accepted-list>
+        </div>
+        <div class="flip-card-back">
+          <app-rejected-list *ngIf="rejectedList" (accepted)="toAcceptedList($event)"></app-rejected-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
