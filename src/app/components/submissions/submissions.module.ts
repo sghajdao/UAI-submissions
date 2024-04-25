@@ -17,6 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RejectedListComponent } from './rejected-list/rejected-list.component';
 import { PendingListComponent } from './pending-list/pending-list.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { PendingListComponent } from './pending-list/pending-list.component';
     MatTooltipModule,
     FormsModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
   ]
 })
 export class SubmissionsModule { }

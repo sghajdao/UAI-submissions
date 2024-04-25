@@ -5,7 +5,8 @@
     scrollbar-width: thin;
     scrollbar-color: #5e6147 var(--second-background-color);
     scrollbar-width: 0.4rem;
-    height: 255px;
+    min-height: 255px;
+    max-height: 455px;
 }
 
 ::placeholder {

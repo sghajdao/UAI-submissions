@@ -3,7 +3,12 @@
         <div class="header">
             <h5 class="card-title">Rejected submissions</h5>
             <form class="d-flex search" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="search" (ngModelChange)="onSearch()">
+                <input class="form-control me-2" [matAutocomplete]="auto" type="search" placeholder="Search" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="search" (ngModelChange)="onSearch()">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <div *ngFor="let item of searchList">
+                      <mat-option [value]="item">{{item}}</mat-option>
+                    </div>
+                </mat-autocomplete>
             </form>
             <button *ngIf="!open" (click)="openAll()" mat-icon-button color="primary" matTooltip="open all" aria-label="Example icon button with a menu icon">
                 <mat-icon class="d-flex justify-content-center align-items-center">expand_more</mat-icon>

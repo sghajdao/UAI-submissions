@@ -17,6 +17,7 @@ export class PendingListComponent implements OnInit {
   list: Submissions[] = []
   open: boolean = false
   search: string = ''
+  searchList: number[] = []
 
   ngOnInit(): void {
     this.setList()
@@ -57,6 +58,7 @@ export class PendingListComponent implements OnInit {
   }
 
   onSearch() {
+    this.searchList = []
     if (this.search) {
       let searchList: Submissions[] = []
       this.setList()
@@ -64,8 +66,10 @@ export class PendingListComponent implements OnInit {
         if (item.stud_id.toString().includes(this.search))
           searchList.push(item)
       }
-      if (searchList.length)
+      if (searchList.length) {
         this.list = searchList
+        this.list.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
+      }
     }
     else
       this.setList()
