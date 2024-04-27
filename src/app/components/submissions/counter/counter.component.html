@@ -1,5 +1,12 @@
 <div class="card container">
     <div class="card-body">
+        <div class="search container">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button style="height: 40px;" mat-fab extended color="primary">
+                <mat-icon>search</mat-icon>
+                Search
+            </button>
+        </div>
         <div *ngIf="chartOptions" id="chart">
             <apx-chart
               [series]="chartOptions.series!"
@@ -9,7 +16,7 @@
               [fill]="chartOptions.fill!"
             ></apx-chart>
         </div>
-        <p>&nbsp;</p>
+        <!-- <p>&nbsp;</p> -->
         <div class="chips">
             <mat-chip-listbox aria-label="Fish selection">
                 <mat-chip-option (click)="getpending()" selected>Pending</mat-chip-option>

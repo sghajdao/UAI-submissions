@@ -51,7 +51,7 @@ export class CounterComponent implements OnInit {
       series: [data],
       chart: {
         type: "radialBar",
-        offsetY: -20
+        offsetY: -20,
       },
       plotOptions: {
         radialBar: {
@@ -71,11 +71,18 @@ export class CounterComponent implements OnInit {
           },
           dataLabels: {
             name: {
-              show: false
+              show: true
             },
             value: {
               offsetY: -2,
-              fontSize: "22px"
+              fontSize: "22px",
+              show: false // show the percentage
+            },
+            total: {
+              label: data + "% " + "from 50",
+              show:true,
+              fontSize: '22px',
+              color: color
             }
           }
         }

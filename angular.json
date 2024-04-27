@@ -79,10 +79,7 @@
               "buildTarget": "submissions-dashboard:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "host": "10.0.0.63"
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

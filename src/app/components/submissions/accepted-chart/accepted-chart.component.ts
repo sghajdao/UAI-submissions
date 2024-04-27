@@ -3,20 +3,27 @@ import {
   ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
-  ApexXAxis,
   ApexDataLabels,
-  ApexTitleSubtitle,
   ApexStroke,
-  ApexGrid
+  ApexGrid,
+  ApexYAxis,
+  ApexPlotOptions,
+  ApexAnnotations,
+  ApexFill,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
-  xaxis: ApexXAxis;
   dataLabels: ApexDataLabels;
-  grid: ApexGrid;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: any; //ApexXAxis;
+  annotations: ApexAnnotations;
+  fill: ApexFill;
   stroke: ApexStroke;
+  grid: ApexGrid;
   title: ApexTitleSubtitle;
 };
 
@@ -45,46 +52,73 @@ export class AcceptedChartComponent implements OnInit {
     this.chartOptions = {
       series: [
         {
-          name: "Accepted",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+          name: "Students",
+          data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
         }
       ],
       chart: {
         height: 350,
-        type: "line",
-        zoom: {
-          enabled: false
+        type: "bar"
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: "50%",
+          borderRadius: 5
         }
       },
       dataLabels: {
         enabled: false
       },
       stroke: {
-        curve: "straight",
-        // colors: ["#ff4081"]
+        width: 2
       },
       title: {
-        text: "Accepted submissions by month",
-        align: "left"
+        text: "Accepted students"
       },
+
       grid: {
         row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5
+          colors: ["#fff", "#f2f2f2"]
         }
       },
       xaxis: {
+        labels: {
+          rotate: -45
+        },
         categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep"
-        ]
+          "Apples",
+          "Oranges",
+          "Strawberries",
+          "Pineapples",
+          "Mangoes",
+          "Bananas",
+          "Blackberries",
+          "Pears",
+          "Watermelons",
+          "Cherries",
+          "Pomegranates",
+          "Tangerines",
+          "Papayas"
+        ],
+        tickPlacement: "on"
+      },
+      yaxis: {
+        title: {
+          text: "Students"
+        }
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 0.85,
+          opacityTo: 0.85,
+          stops: [50, 0, 100]
+        }
       }
     };
   }
