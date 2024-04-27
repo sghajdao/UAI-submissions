@@ -41,6 +41,7 @@ export class CounterComponent implements OnChanges {
   }
 
   onSearch() {
+    this.searchList = []
     if (this.search.length && !Number.isNaN(+this.search)) {
       this.filter.emit(this.search)
       this.search = ''
