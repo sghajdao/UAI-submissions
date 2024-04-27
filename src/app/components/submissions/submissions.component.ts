@@ -78,4 +78,10 @@ export class SubmissionsComponent implements OnInit {
       submission_dte: new Date('2024-04-05 00:30:40.000')
     })
   }
+
+  onSearch(event: string) {
+    this.list = this.list.filter(item => item.stud_id.toString().startsWith(event))
+    if (!this.list.length)
+      this.setList()
+  }
 }

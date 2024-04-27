@@ -18,6 +18,9 @@
             </button>
         </div>
         
+        <div *ngIf="!list.length" class="position-absolute top-50 start-50 translate-middle">
+            <h2>There is no Student in rejected list</h2>
+        </div>
         <div style="padding-top: 15px;" *ngIf="list.length">
             <mat-accordion multi>
                 <mat-expansion-panel *ngFor="let item of list; let i = index" (opened)="panelOpenState[i] = true"

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import {
   ApexNonAxisChartSeries,
   ApexPlotOptions,
@@ -6,6 +6,7 @@ import {
   ApexFill,
   ChartComponent
 } from "ng-apexcharts";
+import { Submissions } from '../../../models/submissions';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -20,30 +21,45 @@ export type ChartOptions = {
   templateUrl: './counter.component.html',
   styleUrls: ['./counter.component.css'],
 })
-export class CounterComponent implements OnInit {
+export class CounterComponent implements OnChanges {
   constructor() {}
 
   @ViewChild("chart") chart?: ChartComponent;
   public chartOptions?: Partial<ChartOptions>;
+  @Input() students?: Submissions[]
+  @Output() filter = new EventEmitter<string>()
+  search: string = ''
+  searchList: string[] = []
 
   pending: number = 62;
   accepted: number = 28;
   rejected: number = 10;
 
-  ngOnInit(): void {
-    this.setChart(this.pending, '#3f51b5')
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.students)
+      this.setChart(this.pending, '#3f51b5')
   }
 
-  getpending() {
-    this.setChart(this.pending, '#3f51b5')
+  onSearch() {
+    if (this.search.length && !Number.isNaN(+this.search)) {
+      this.filter.emit(this.search)
+      this.search = ''
+    }
+    else {
+      this.filter.emit('-1')
+      this.search = ''
+    }
   }
 
-  getAccepted() {
-    this.setChart(this.accepted, "#ff4081")
-  }
-
-  getRejected() {
-    this.setChart(this.rejected, '#f44336')
+  getOptions() {
+    this.searchList = []
+    console.log(this.search)
+    if (this.search && this.students) {
+      for (let item of this.students) {
+        if (item.stud_id.toString().startsWith(this.search) && !this.searchList.includes(item.stud_id.toString()))
+          this.searchList.push(item.stud_id.toString())
+      }
+    }
   }
 
   setChart(data: number, color: string) {

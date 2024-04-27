@@ -1,7 +1,7 @@
 <div class="page">
   <div style="display: flex;">
     <div style="padding-right: 5px;width: 50%;">
-      <app-counter></app-counter>
+      <app-counter [students]="list" (filter)="onSearch($event)"></app-counter>
     </div>
     <div class="flip-card" id="myFlipCard" style="padding-left: 5px;width: 50%;">
       <div class="flip-card-inner">
@@ -17,15 +17,15 @@
 
   <div style="padding-top: 10px;display: flex;">
     <div style="padding-right: 5px;width: 50%;">
-      <app-pending-list></app-pending-list>
+      <app-pending-list [students]="list"></app-pending-list>
     </div>
     <div class="flip-card" id="myFlipList" style="padding-left: 5px;width: 50%;">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <app-accepted-list *ngIf="acceptedList" (rejected)="toRejectedList($event)"></app-accepted-list>
+          <app-accepted-list *ngIf="acceptedList" (rejected)="toRejectedList($event)" [students]="list"></app-accepted-list>
         </div>
         <div class="flip-card-back">
-          <app-rejected-list *ngIf="rejectedList" (accepted)="toAcceptedList($event)"></app-rejected-list>
+          <app-rejected-list *ngIf="rejectedList" (accepted)="toAcceptedList($event)" [students]="list"></app-rejected-list>
         </div>
       </div>
     </div>
