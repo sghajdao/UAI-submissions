@@ -6,7 +6,7 @@ import {
   ApexFill,
   ChartComponent
 } from "ng-apexcharts";
-import { Submissions } from '../../../models/submissions';
+import { Cus_special_request_sub } from '../../../models/cus_special_request_sub';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -26,18 +26,22 @@ export class CounterComponent implements OnChanges {
 
   @ViewChild("chart") chart?: ChartComponent;
   public chartOptions?: Partial<ChartOptions>;
-  @Input() students?: Submissions[]
+  @Input() students?: Cus_special_request_sub[]
   @Output() filter = new EventEmitter<string>()
   search: string = ''
   searchList: string[] = []
 
-  pending: number = 62;
-  accepted: number = 28;
-  rejected: number = 10;
+  pending: number = 0;
+  accepted: number = 0;
+  rejected: number = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.students)
+    if (this.students && this.students.length) {
+      this.pending = this.students.filter(item => item.submission_Status.startsWith('Pending')).length * 100 / this.students.length
+      this.accepted = this.students.filter(item => item.submission_Status.startsWith('Accepted')).length * 100 / this.students.length
+      this.rejected = this.students.filter(item => item.submission_Status.startsWith('Rejected')).length * 100 / this.students.length
       this.setChart(this.pending, '#3f51b5')
+    }
   }
 
   onSearch() {
@@ -96,7 +100,7 @@ export class CounterComponent implements OnChanges {
               show: false // show the percentage
             },
             total: {
-              label: data + "% " + "from 50",
+              label: data + "% " + "from " + this.students?.length,
               show:true,
               fontSize: '22px',
               color: color

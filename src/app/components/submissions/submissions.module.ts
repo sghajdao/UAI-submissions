@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RejectedListComponent } from './rejected-list/rejected-list.component';
 import { PendingListComponent } from './pending-list/pending-list.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
   imports: [
     CommonModule,
     SubmissionsRoutingModule,
+    HttpClientModule,
     NgApexchartsModule,
     MatChipsModule,MatButtonModule, MatDividerModule,
     MatIconModule,

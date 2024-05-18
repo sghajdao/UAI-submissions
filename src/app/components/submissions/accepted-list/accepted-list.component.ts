@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Submissions } from '../../../models/submissions';
+import { Cus_special_request_sub } from '../../../models/cus_special_request_sub';
 import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
@@ -13,22 +13,22 @@ export class AcceptedListComponent implements OnChanges {
 
   @ViewChild(MatAccordion) accordion?: MatAccordion;
   @Output() rejected = new EventEmitter<boolean>(false)
-  @Input() students?: Submissions[]
+  @Input() students?: Cus_special_request_sub[]
   panelOpenState: boolean[] = [];
-  list: Submissions[] = []
+  list: Cus_special_request_sub[] = []
   open: boolean = false
   search: string = ''
   searchList: number[] = []
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.students)
-      this.list = this.students
+      this.list = this.students.filter(item => item.submission_Status.startsWith('Accepted'))
   }
 
   onSearch() {
     this.searchList = []
     if (this.search && this.students) {
-      let searchList: Submissions[] = []
+      let searchList: Cus_special_request_sub[] = []
       this.list = this.students
       for (let item of this.list) {
         if (item.stud_id.toString().startsWith(this.search))

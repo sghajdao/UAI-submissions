@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Submissions } from '../../models/submissions';
+import { Cus_special_request_sub } from '../../models/cus_special_request_sub';
+import { SubmissionsService } from '../../services/submissions.service';
 
 @Component({
   selector: 'app-submissions',
@@ -8,13 +9,15 @@ import { Submissions } from '../../models/submissions';
 })
 export class SubmissionsComponent implements OnInit {
 
-  constructor() {}
+  constructor(
+    private service: SubmissionsService
+  ) {}
 
   accepted: boolean = true
   rejected: boolean = false
   acceptedList: boolean = true
   rejectedList: boolean = false
-  list: Submissions[] = []
+  list: Cus_special_request_sub[] = []
 
   ngOnInit(): void {
     this.setList()
@@ -49,33 +52,8 @@ export class SubmissionsComponent implements OnInit {
   }
 
   setList() {
-    this.list = []
-    this.list.push({
-      stud_id: 98550,
-      crscode: '@3q',
-      submission_ID: '@@SubmissionID',
-      year_cde: '@14q',
-      term_cde: '@13q',
-      submission_status: 'Pending',
-      submission_dte: new Date('2024-03-13 13:06:18.000')
-    })
-    this.list.push({
-      stud_id: 90305,
-      crscode: 'INT4001',
-      submission_ID: '000327d4-3949-44a0-b009-310ac2c19c6b',
-      year_cde: '2324',
-      term_cde: 'SP',
-      submission_status: 'Pending',
-      submission_dte: new Date('2024-04-02 04:15:41.000')
-    })
-    this.list.push({
-      stud_id: 98550,
-      crscode: 'ACC2301',
-      submission_ID: '7a236e9b-4836-4eaf-ac76-40e0db363014',
-      year_cde: '2324',
-      term_cde: 'SP',
-      submission_status: 'Pending',
-      submission_dte: new Date('2024-04-05 00:30:40.000')
+    this.service.getData().subscribe({
+      next: data => this.list = data
     })
   }
 

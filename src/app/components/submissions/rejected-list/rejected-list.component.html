@@ -37,10 +37,12 @@
                         <div style="width: 150px;">
                             <p style="font-weight: 600;">Course code</p>
                             <p style="font-weight: 600;">Submission date</p>
+                            <p *ngIf="item.school" style="font-weight: 600;">School</p>
                         </div>
                         <div>
                             <p style="font-weight: 500;">{{item.crscode}}</p>
-                            <p style="font-weight: 500;">{{item.submission_dte.toDateString()}}</p>
+                            <p style="font-weight: 500;">{{item.submission_Dte}}</p>
+                            <p *ngIf="item.school" style="font-weight: 500;">{{item.school}}</p>
                         </div>
                     </div>
                 </mat-expansion-panel>

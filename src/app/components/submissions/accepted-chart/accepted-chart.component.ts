@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -12,6 +12,7 @@ import {
   ApexFill,
   ApexTitleSubtitle
 } from "ng-apexcharts";
+import { Cus_special_request_sub } from '../../../models/cus_special_request_sub';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -32,23 +33,35 @@ export type ChartOptions = {
   templateUrl: './accepted-chart.component.html',
   styleUrl: './accepted-chart.component.css'
 })
-export class AcceptedChartComponent implements OnInit {
+export class AcceptedChartComponent implements OnChanges {
   constructor() {}
 
   @ViewChild("chart") chart?: ChartComponent;
   public chartOptions?: Partial<ChartOptions>;
 
+  @Input() students?: Cus_special_request_sub[]
   @Output() rejected = new EventEmitter<boolean>(false)
 
-  ngOnInit(): void {
-    this.setChart()
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.students && this.students.length) {
+      this.setChart(this.students)
+    }
   }
 
   toRejected() {
     this.rejected.emit(true)
   }
 
-  setChart() {
+  setChart(list: Cus_special_request_sub[]) {
+    let schools: string[] = []
+    let subs: number[] = []
+    for (let student of list) {
+      if (!schools.includes(student.school) && student.school)
+        schools.push(student.school)
+    }
+    for (let school of schools) {
+      subs.push(list.filter(item => item.school && item.school.startsWith(school)).length)
+    }
     this.chartOptions = {
       series: [
         {

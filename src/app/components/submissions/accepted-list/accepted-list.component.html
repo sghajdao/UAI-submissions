@@ -19,7 +19,7 @@
         </div>
 
         <div *ngIf="!list.length" class="position-absolute top-50 start-50 translate-middle">
-            <h2>There is no Student in rejected list</h2>
+            <h2>There is no Student in accepted list</h2>
         </div>
         <div style="padding-top: 15px;" *ngIf="list.length">
             <mat-accordion multi>
@@ -37,10 +37,12 @@
                         <div style="width: 150px;">
                             <p style="font-weight: 600;">Course code</p>
                             <p style="font-weight: 600;">Submission date</p>
+                            <p *ngIf="item.school" style="font-weight: 600;">School</p>
                         </div>
                         <div>
                             <p style="font-weight: 500;">{{item.crscode}}</p>
-                            <p style="font-weight: 500;">{{item.submission_dte.toDateString()}}</p>
+                            <p style="font-weight: 500;">{{item.submission_Dte}}</p>
+                            <p *ngIf="item.school" style="font-weight: 500;">{{item.school}}</p>
                         </div>
                     </div>
                 </mat-expansion-panel>
