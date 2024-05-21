@@ -57,8 +57,13 @@ export class SubmissionsComponent implements OnInit {
     })
   }
 
-  onSearch(event: string) {
-    this.list = this.list.filter(item => item.stud_id.toString().startsWith(event))
+  onSearch(event: {id: string, section: string}) {
+    if (event.id && event.section)
+      this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id) && item.section.startsWith(event.section))
+    else if (!event.id)
+      this.list = this.list.filter(item => item.section.startsWith(event.section))
+    else if (!event.section)
+      this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id))
     if (!this.list.length)
       this.setList()
   }

@@ -1,7 +1,10 @@
 <div class="page">
+  <div class="header">
+    <app-header [students]="list" (filter)="onSearch($event)"></app-header>
+  </div>
   <div style="display: flex;">
     <div style="padding-right: 5px;width: 50%;">
-      <app-counter [students]="list" (filter)="onSearch($event)"></app-counter>
+      <app-counter [students]="list"></app-counter>
     </div>
     <div class="flip-card" id="myFlipCard" style="padding-left: 5px;width: 50%;">
       <div class="flip-card-inner">

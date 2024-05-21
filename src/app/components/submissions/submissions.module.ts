@@ -19,6 +19,7 @@ import { RejectedListComponent } from './rejected-list/rejected-list.component';
 import { PendingListComponent } from './pending-list/pending-list.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     RejectedChartComponent,
     AcceptedListComponent,
     RejectedListComponent,
-    PendingListComponent
+    PendingListComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

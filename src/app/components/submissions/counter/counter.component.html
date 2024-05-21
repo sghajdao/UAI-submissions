@@ -1,6 +1,6 @@
 <div class="card container">
     <div class="card-body">
-        <div class="search container">
+        <!-- <div class="search container">
             <input class="form-control me-2" [matAutocomplete]="auto" type="search" placeholder="Search" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="search" (ngModelChange)="getOptions()">
             <mat-autocomplete #auto="matAutocomplete">
                 <div *ngFor="let item of searchList">
@@ -13,7 +13,7 @@
                 <span *ngIf="search.length">Search</span>
                 <span *ngIf="!search.length">refresh</span>
             </button>
-        </div>
+        </div> -->
         <div *ngIf="chartOptions" id="chart">
             <apx-chart
               [series]="chartOptions.series!"

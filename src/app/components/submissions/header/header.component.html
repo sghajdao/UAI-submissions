@@ -1,0 +1,35 @@
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Searh excpansion
+            </mat-panel-title>
+            <mat-panel-description>
+                Search by student id or section
+                <mat-icon>search</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- <p>This is the primary content of the panel.</p> -->
+        <div class="inputs">
+            <input class="form-control me-2 id" [matAutocomplete]="auto1" type="search" placeholder="Search by id" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchById" (ngModelChange)="getIdOptions()">
+            <mat-autocomplete #auto1="matAutocomplete">
+                <div *ngFor="let item of idsList">
+                  <mat-option [value]="item">{{item}}</mat-option>
+                </div>
+            </mat-autocomplete>
+
+            <input class="form-control me-2 id" [matAutocomplete]="auto2" type="search" placeholder="Search by section" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchBySection" (ngModelChange)="getSectionOptions()">
+            <mat-autocomplete #auto2="matAutocomplete">
+                <div *ngFor="let item of sectionsList">
+                  <mat-option [value]="item">{{item}}</mat-option>
+                </div>
+            </mat-autocomplete>
+            <div style="margin-right: 0;">
+                <button mat-button color="primary" (click)="onSearch()">
+                    <span *ngIf="searchById || searchBySection">Search</span>
+                    <span *ngIf="!searchById && !searchBySection">Refresh</span>
+                </button>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
