@@ -17,30 +17,69 @@ export class AcceptedListComponent implements OnChanges {
   panelOpenState: boolean[] = [];
   list: Cus_special_request_sub[] = []
   open: boolean = false
-  search: string = ''
+  searchById: string = ''
+  searchBySection: string = ''
   searchList: number[] = []
+  sectionsList: string[] = []
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.students)
-      this.list = this.students.filter(item => item.submission_Status.startsWith('Accepted'))
+      this.list = this.students.filter(item => item.submission_Status.startsWith('Approved'))
   }
 
   onSearch() {
     this.searchList = []
-    if (this.search && this.students) {
-      let searchList: Cus_special_request_sub[] = []
+    this.sectionsList = []
+    if (this.searchById.length && this.searchBySection.length && this.students) {
+      let test: Cus_special_request_sub[] = []
       this.list = this.students
       for (let item of this.list) {
-        if (item.stud_id.toString().startsWith(this.search))
+        if (item.stud_id.toString().startsWith(this.searchById) && item.section && item.section.toString().startsWith(this.searchBySection)) {
+          test.push(item)
+        }
+      }
+      this.list = test
+      this.list.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
+      this.list.forEach(item =>!this.sectionsList.includes(item.section)? this.sectionsList.push(item.section.trim()): null)
+    }
+    else if (this.searchById.length && !this.searchBySection.length && this.students) {
+      this.list = this.students
+      this.onSearchById()
+    }
+    else if (!this.searchById.length && this.searchBySection.length && this.students) {
+      this.list = this.students
+      this.onSearchBySection()
+    }
+    else if (this.students && !this.searchBySection.length)
+      this.list = this.students
+  }
+
+  onSearchById() {
+    this.searchList = []
+    if (this.searchById.length && this.students) {
+      let searchList: Cus_special_request_sub[] = []
+      this.list = this.list.length? this.list: this.students
+      for (let item of this.list) {
+        if (item.stud_id.toString().startsWith(this.searchById))
           searchList.push(item)
       }
-      if (searchList.length) {
-        this.list = searchList
-        this.list.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
-      }
+      this.list = searchList
+      this.list.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
     }
-    else if (this.students)
-      this.list = this.students
+  }
+
+  onSearchBySection() {
+    this.sectionsList = []
+    if (this.searchBySection.length && this.students) {
+      let sectionsList: Cus_special_request_sub[] = []
+      this.list = this.list.length? this.list: this.students
+      for (let item of this.list) {
+        if (item.section && item.section.toString().startsWith(this.searchBySection))
+          sectionsList.push(item)
+      }
+      this.list = sectionsList
+      this.list.forEach(item =>!this.sectionsList.includes(item.section)? this.sectionsList.push(item.section.trim()): null)
+    }
   }
 
   openAll() {

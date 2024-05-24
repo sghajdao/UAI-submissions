@@ -1,23 +1,31 @@
 <div class="card">
     <div class="card-body">
         <div class="header">
-            <h5 class="card-title">Accepted submissions</h5>
+            <h5 class="card-title">Approved</h5>
             <form class="d-flex search" role="search">
-                <input class="form-control me-2" [matAutocomplete]="auto" type="search" placeholder="Search" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="search" (ngModelChange)="onSearch()">
-                <mat-autocomplete #auto="matAutocomplete">
+                <input class="form-control me-2" [matAutocomplete]="auto1" type="search" placeholder="Student id" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchById" (ngModelChange)="onSearch()">
+                <mat-autocomplete #auto1="matAutocomplete">
                     <div *ngFor="let item of searchList">
                       <mat-option [value]="item">{{item}}</mat-option>
                     </div>
                 </mat-autocomplete>
+                <input class="form-control me-2" [matAutocomplete]="auto2" type="search" placeholder="Section" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchBySection" (ngModelChange)="onSearch()">
+                <mat-autocomplete #auto2="matAutocomplete">
+                    <div *ngFor="let item of sectionsList">
+                      <mat-option [value]="item">{{item}}</mat-option>
+                    </div>
+                </mat-autocomplete>
             </form>
-            <button *ngIf="!open" (click)="openAll()" mat-icon-button color="primary" matTooltip="open all" aria-label="Example icon button with a menu icon">
-                <mat-icon class="d-flex justify-content-center align-items-center">expand_more</mat-icon>
-            </button>
-            <button *ngIf="open" (click)="closeAll()" mat-icon-button color="primary" matTooltip="close all" aria-label="Example icon button with a menu icon">
-                <mat-icon class="d-flex justify-content-center align-items-center">expand_less</mat-icon>
-            </button>
+            <div>
+                <button *ngIf="!open" (click)="openAll()" mat-icon-button color="primary" matTooltip="open all" aria-label="Example icon button with a menu icon">
+                    <mat-icon class="d-flex justify-content-center align-items-center">expand_more</mat-icon>
+                </button>
+                <button *ngIf="open" (click)="closeAll()" mat-icon-button color="primary" matTooltip="close all" aria-label="Example icon button with a menu icon">
+                    <mat-icon class="d-flex justify-content-center align-items-center">expand_less</mat-icon>
+                </button>
+                <mat-icon (click)="toRejected()" style="float: right;cursor: pointer;" matTooltip="Rejected" class="right">chevron_right</mat-icon>
+            </div>
         </div>
-
         <div *ngIf="!list.length" class="position-absolute top-50 start-50 translate-middle">
             <h2>There is no Student in accepted list</h2>
         </div>
@@ -48,6 +56,6 @@
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
-        <mat-icon (click)="toRejected()" style="float: right;cursor: pointer;" matTooltip="Rejected" class="right">chevron_right</mat-icon>
+        <!-- <mat-icon (click)="toRejected()" style="float: right;cursor: pointer;" matTooltip="Rejected" class="right">chevron_right</mat-icon> -->
     </div>
 </div>

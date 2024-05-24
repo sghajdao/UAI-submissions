@@ -38,7 +38,7 @@ export class CounterComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.students && this.students.length) {
       this.pending = this.students.filter(item => item.submission_Status.startsWith('Pending')).length * 100 / this.students.length
-      this.accepted = this.students.filter(item => item.submission_Status.startsWith('Accepted')).length * 100 / this.students.length
+      this.accepted = this.students.filter(item => item.submission_Status.startsWith('Approved')).length * 100 / this.students.length
       this.rejected = this.students.filter(item => item.submission_Status.startsWith('Rejected')).length * 100 / this.students.length
       this.setChart(this.pending, '#3f51b5')
     }
@@ -72,7 +72,7 @@ export class CounterComponent implements OnChanges {
       series: [data],
       chart: {
         type: "radialBar",
-        offsetY: -20,
+        offsetY: -50,
       },
       plotOptions: {
         radialBar: {
@@ -100,7 +100,7 @@ export class CounterComponent implements OnChanges {
               show: false // show the percentage
             },
             total: {
-              label: data + "% " + "from " + this.students?.length,
+              label: data.toFixed(2) + "% " + "from " + this.students?.length,
               show:true,
               fontSize: '22px',
               color: color

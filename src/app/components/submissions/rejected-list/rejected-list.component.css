@@ -33,6 +33,10 @@
     width: 100%;
 }
 
+.card-title {
+    width: 100px;
+}
+
 button {
     margin-top: -10px;
 }

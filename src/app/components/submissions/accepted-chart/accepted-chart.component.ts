@@ -56,7 +56,7 @@ export class AcceptedChartComponent implements OnChanges {
     let schools: string[] = []
     let subs: number[] = []
     for (let student of list) {
-      if (!schools.includes(student.school) && student.school)
+      if (student.school && !schools.includes(student.school) && student.submission_Status.startsWith('Approved'))
         schools.push(student.school)
     }
     for (let school of schools) {
@@ -66,7 +66,7 @@ export class AcceptedChartComponent implements OnChanges {
       series: [
         {
           name: "Students",
-          data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
+          data: subs
         }
       ],
       chart: {
@@ -98,26 +98,19 @@ export class AcceptedChartComponent implements OnChanges {
         labels: {
           rotate: -45
         },
-        categories: [
-          "Apples",
-          "Oranges",
-          "Strawberries",
-          "Pineapples",
-          "Mangoes",
-          "Bananas",
-          "Blackberries",
-          "Pears",
-          "Watermelons",
-          "Cherries",
-          "Pomegranates",
-          "Tangerines",
-          "Papayas"
-        ],
+        categories: schools,
         tickPlacement: "on"
       },
       yaxis: {
         title: {
           text: "Students"
+        },
+        labels: {
+          formatter: function (value) {
+            if (value != Math.floor(value))
+              return ''
+            return value.toString()
+          }
         }
       },
       fill: {

@@ -5,7 +5,7 @@
                 Searh excpansion
             </mat-panel-title>
             <mat-panel-description>
-                Search by student id or section
+                Search by student id or course
                 <mat-icon>search</mat-icon>
             </mat-panel-description>
         </mat-expansion-panel-header>
@@ -18,16 +18,16 @@
                 </div>
             </mat-autocomplete>
 
-            <input class="form-control me-2 id" [matAutocomplete]="auto2" type="search" placeholder="Search by section" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchBySection" (ngModelChange)="getSectionOptions()">
+            <input class="form-control me-2 id" [matAutocomplete]="auto2" type="search" placeholder="Search by course code" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchByCourse" (ngModelChange)="getCourseOptions()">
             <mat-autocomplete #auto2="matAutocomplete">
-                <div *ngFor="let item of sectionsList">
+                <div *ngFor="let item of coursesList">
                   <mat-option [value]="item">{{item}}</mat-option>
                 </div>
             </mat-autocomplete>
             <div style="margin-right: 0;">
                 <button mat-button color="primary" (click)="onSearch()">
-                    <span *ngIf="searchById || searchBySection">Search</span>
-                    <span *ngIf="!searchById && !searchBySection">Refresh</span>
+                    <span *ngIf="searchById || searchByCourse">Search</span>
+                    <span *ngIf="!searchById && !searchByCourse">Refresh</span>
                 </button>
             </div>
         </div>

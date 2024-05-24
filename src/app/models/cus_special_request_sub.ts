@@ -1,4 +1,5 @@
 export interface Cus_special_request_sub {
+    id: number,
     stud_id: number,
     crscode: string,
     Submission_ID: string,

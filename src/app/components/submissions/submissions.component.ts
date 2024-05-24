@@ -53,16 +53,16 @@ export class SubmissionsComponent implements OnInit {
 
   setList() {
     this.service.getData().subscribe({
-      next: data => this.list = data
+      next: data => {this.list = data;console.log(data)}
     })
   }
 
-  onSearch(event: {id: string, section: string}) {
-    if (event.id && event.section)
-      this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id) && item.section.startsWith(event.section))
+  onSearch(event: {id: string, course: string}) {
+    if (event.id && event.course)
+      this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id) && item.crscode.startsWith(event.course))
     else if (!event.id)
-      this.list = this.list.filter(item => item.section.startsWith(event.section))
-    else if (!event.section)
+      this.list = this.list.filter(item => item.crscode.startsWith(event.course))
+    else if (!event.course)
       this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id))
     if (!this.list.length)
       this.setList()
