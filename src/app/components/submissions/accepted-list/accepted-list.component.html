@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" (scroll)="onScroll($event)">
     <div class="card-body">
         <div class="header">
             <h5 class="card-title">Approved</h5>
@@ -31,7 +31,7 @@
         </div>
         <div style="padding-top: 15px;" *ngIf="list.length">
             <mat-accordion multi>
-                <mat-expansion-panel *ngFor="let item of list; let i = index" (opened)="panelOpenState[i] = true"
+                <mat-expansion-panel *ngFor="let item of actualColumns; let i = index" (opened)="panelOpenState[i] = true"
                                      (closed)="panelOpenState[i] = false">
                     <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -46,11 +46,13 @@
                             <p style="font-weight: 600;">Course code</p>
                             <p style="font-weight: 600;">Submission date</p>
                             <p *ngIf="item.school" style="font-weight: 600;">School</p>
+                            <p *ngIf="item.section" style="font-weight: 600;">Section</p>
                         </div>
                         <div>
                             <p style="font-weight: 500;">{{item.crscode}}</p>
                             <p style="font-weight: 500;">{{item.submission_Dte}}</p>
                             <p *ngIf="item.school" style="font-weight: 500;">{{item.school}}</p>
+                            <p *ngIf="item.section" style="font-weight: 500;">{{item.section}}</p>
                         </div>
                     </div>
                 </mat-expansion-panel>

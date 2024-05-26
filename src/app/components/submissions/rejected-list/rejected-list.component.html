@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" (scroll)="onScroll($event)">
     <div class="card-body">
         <div class="header">
             <h5 class="card-title">Rejected</h5>
@@ -26,7 +26,7 @@
         </div>
         <div style="padding-top: 15px;" *ngIf="list.length">
             <mat-accordion multi>
-                <mat-expansion-panel *ngFor="let item of list; let i = index" (opened)="panelOpenState[i] = true"
+                <mat-expansion-panel *ngFor="let item of actualColumns; let i = index" (opened)="panelOpenState[i] = true"
                                      (closed)="panelOpenState[i] = false">
                     <mat-expansion-panel-header>
                     <mat-panel-title>

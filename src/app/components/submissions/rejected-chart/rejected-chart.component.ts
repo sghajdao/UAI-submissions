@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -12,6 +12,7 @@ import {
   ApexFill,
   ApexTitleSubtitle
 } from "ng-apexcharts";
+import { Cus_special_request_sub } from '../../../models/cus_special_request_sub';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -39,22 +40,33 @@ export class RejectedChartComponent implements OnInit {
   @ViewChild("chart") chart?: ChartComponent;
   public chartOptions?: Partial<ChartOptions>;
 
+  @Input() students?: Cus_special_request_sub[]
   @Output() accepted = new EventEmitter<boolean>(false)
 
   ngOnInit(): void {
-    this.setChart()
+    if (this.students)
+      this.setChart(this.students)
   }
 
   toAccepted() {
     this.accepted.emit(true)
   }
 
-  setChart() {
+  setChart(list: Cus_special_request_sub[]) {
+    let schools: string[] = []
+    let subs: number[] = []
+    for (let student of list) {
+      if (student.school && !schools.includes(student.school) && student.submission_Status.startsWith('Rejected'))
+        schools.push(student.school)
+    }
+    for (let school of schools) {
+      subs.push(list.filter(item => item.school && item.school.startsWith(school)).length)
+    }
     this.chartOptions = {
       series: [
         {
           name: "Students",
-          data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
+          data: subs
         }
       ],
       chart: {
@@ -87,26 +99,19 @@ export class RejectedChartComponent implements OnInit {
         labels: {
           rotate: -45
         },
-        categories: [
-          "Apples",
-          "Oranges",
-          "Strawberries",
-          "Pineapples",
-          "Mangoes",
-          "Bananas",
-          "Blackberries",
-          "Pears",
-          "Watermelons",
-          "Cherries",
-          "Pomegranates",
-          "Tangerines",
-          "Papayas"
-        ],
+        categories: schools,
         tickPlacement: "on"
       },
       yaxis: {
         title: {
           text: "Students"
+        },
+        labels: {
+          formatter: function (value) {
+            if (value != Math.floor(value))
+              return ''
+            return value.toString()
+          }
         }
       },
       fill: {

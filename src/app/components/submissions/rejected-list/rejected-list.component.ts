@@ -16,13 +16,16 @@ export class RejectedListComponent implements OnChanges {
   @Input() students?: Cus_special_request_sub[]
   panelOpenState: boolean[] = [];
   list: Cus_special_request_sub[] = []
+  actualColumns?: Cus_special_request_sub[]
   open: boolean = false
   search: string = ''
   searchList: number[] = []
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.students)
+    if (this.students) {
       this.list = this.students.filter(item => item.submission_Status.startsWith('Rejected'))
+      this.actualColumns = this.list.slice(0, 20)
+    }
   }
 
   onSearch() {
@@ -55,5 +58,14 @@ export class RejectedListComponent implements OnChanges {
 
   toAccepted() {
     this.accepted.emit(true)
+  }
+
+  start: number = 20
+  onScroll(event: any) {
+    const bottomPosition = event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight;
+    if (bottomPosition && this.list) {
+      this.actualColumns = this.actualColumns?.concat(this.list.slice(this.start, this.start + 20))
+      this.start += 20
+    }
   }
 }

@@ -100,7 +100,7 @@ export class CounterComponent implements OnChanges {
               show: false // show the percentage
             },
             total: {
-              label: data.toFixed(2) + "% " + "from " + this.students?.length,
+              label: data != Math.floor(data)? data.toFixed(2) + "% " + "from " + this.students?.length: data + "% " + "from " + this.students?.length,
               show:true,
               fontSize: '22px',
               color: color

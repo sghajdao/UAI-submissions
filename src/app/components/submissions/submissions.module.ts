@@ -20,6 +20,7 @@ import { PendingListComponent } from './pending-list/pending-list.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { HeaderComponent } from './header/header.component';
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SubmissionsModule { }

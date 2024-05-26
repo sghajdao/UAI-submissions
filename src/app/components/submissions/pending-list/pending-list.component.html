@@ -1,9 +1,9 @@
-<div class="card">
+<div class="card" (scroll)="onScroll($event)">
     <div class="card-body">
         <div class="header">
-            <h5 class="card-title">Pending submissions</h5>
+            <h5 class="card-title">Pending</h5>
             <form class="d-flex search" role="search">
-                <input class="form-control me-2" [matAutocomplete]="auto" type="search" placeholder="Search" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="search" (ngModelChange)="onSearch()">
+                <input class="form-control me-2" [matAutocomplete]="auto" type="search" placeholder="Student id" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="search" (ngModelChange)="onSearch()">
                 <mat-autocomplete #auto="matAutocomplete">
                     <div *ngFor="let item of searchList">
                       <mat-option [value]="item">{{item}}</mat-option>
@@ -23,7 +23,7 @@
         </div>
         <div style="padding-top: 15px;" *ngIf="list.length">
             <mat-accordion multi>
-                <mat-expansion-panel *ngFor="let item of list; let i = index" (opened)="panelOpenState[i] = true"
+                <mat-expansion-panel *ngFor="let item of actualColumns; let i = index" (opened)="panelOpenState[i] = true"
                                      (closed)="panelOpenState[i] = false">
                     <mat-expansion-panel-header>
                     <mat-panel-title>

@@ -16,6 +16,7 @@ export class AcceptedListComponent implements OnChanges {
   @Input() students?: Cus_special_request_sub[]
   panelOpenState: boolean[] = [];
   list: Cus_special_request_sub[] = []
+  actualColumns?: Cus_special_request_sub[]
   open: boolean = false
   searchById: string = ''
   searchBySection: string = ''
@@ -23,8 +24,10 @@ export class AcceptedListComponent implements OnChanges {
   sectionsList: string[] = []
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.students)
+    if (this.students) {
       this.list = this.students.filter(item => item.submission_Status.startsWith('Approved'))
+      this.actualColumns = this.list.slice(0, 20)
+    }
   }
 
   onSearch() {
@@ -94,5 +97,14 @@ export class AcceptedListComponent implements OnChanges {
 
   toRejected() {
     this.rejected.emit(true)
+  }
+
+  start: number = 20
+  onScroll(event: any) {
+    const bottomPosition = event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight;
+    if (bottomPosition && this.list) {
+      this.actualColumns = this.actualColumns?.concat(this.list.slice(this.start, this.start + 20))
+      this.start += 20
+    }
   }
 }
