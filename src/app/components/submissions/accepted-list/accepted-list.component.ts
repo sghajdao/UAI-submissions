@@ -33,55 +33,55 @@ export class AcceptedListComponent implements OnChanges {
   onSearch() {
     this.searchList = []
     this.sectionsList = []
-    if (this.searchById.length && this.searchBySection.length && this.students) {
+    if (this.searchById.length && this.searchBySection.length && this.list) {
       let test: Cus_special_request_sub[] = []
-      this.list = this.students
-      for (let item of this.list) {
+      this.actualColumns = this.list
+      for (let item of this.actualColumns) {
         if (item.stud_id.toString().startsWith(this.searchById) && item.section && item.section.toString().startsWith(this.searchBySection)) {
           test.push(item)
         }
       }
-      this.list = test
-      this.list.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
-      this.list.forEach(item =>!this.sectionsList.includes(item.section)? this.sectionsList.push(item.section.trim()): null)
+      this.actualColumns = test
+      this.actualColumns.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
+      this.actualColumns.forEach(item =>!this.sectionsList.includes(item.section)? this.sectionsList.push(item.section.trim()): null)
     }
-    else if (this.searchById.length && !this.searchBySection.length && this.students) {
-      this.list = this.students
+    else if (this.searchById.length && !this.searchBySection.length && this.list) {
+      this.actualColumns = this.list
       this.onSearchById()
     }
-    else if (!this.searchById.length && this.searchBySection.length && this.students) {
-      this.list = this.students
+    else if (!this.searchById.length && this.searchBySection.length && this.list) {
+      this.actualColumns = this.list
       this.onSearchBySection()
     }
-    else if (this.students && !this.searchBySection.length)
-      this.list = this.students
+    else if (this.list && !this.searchBySection.length)
+      this.actualColumns = this.list
   }
 
   onSearchById() {
     this.searchList = []
-    if (this.searchById.length && this.students) {
+    if (this.searchById.length && this.list) {
       let searchList: Cus_special_request_sub[] = []
-      this.list = this.list.length? this.list: this.students
-      for (let item of this.list) {
+      this.actualColumns = this.actualColumns!.length? this.actualColumns: this.list
+      for (let item of this.actualColumns!) {
         if (item.stud_id.toString().startsWith(this.searchById))
           searchList.push(item)
       }
-      this.list = searchList
-      this.list.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
+      this.actualColumns = searchList
+      this.actualColumns.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
     }
   }
 
   onSearchBySection() {
     this.sectionsList = []
-    if (this.searchBySection.length && this.students) {
+    if (this.searchBySection.length && this.list) {
       let sectionsList: Cus_special_request_sub[] = []
-      this.list = this.list.length? this.list: this.students
-      for (let item of this.list) {
+      this.actualColumns = this.actualColumns!.length? this.actualColumns: this.list
+      for (let item of this.actualColumns!) {
         if (item.section && item.section.toString().startsWith(this.searchBySection))
           sectionsList.push(item)
       }
-      this.list = sectionsList
-      this.list.forEach(item =>!this.sectionsList.includes(item.section)? this.sectionsList.push(item.section.trim()): null)
+      this.actualColumns = sectionsList
+      this.actualColumns.forEach(item =>!this.sectionsList.includes(item.section)? this.sectionsList.push(item.section.trim()): null)
     }
   }
 

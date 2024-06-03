@@ -32,18 +32,18 @@ export class RejectedListComponent implements OnChanges {
     this.searchList = []
     if (this.search && this.students) {
       let searchList: Cus_special_request_sub[] = []
-      this.list = this.students
-      for (let item of this.list) {
+      this.actualColumns = this.list
+      for (let item of this.actualColumns) {
         if (item.stud_id.toString().startsWith(this.search))
           searchList.push(item)
       }
-      if (searchList.length) {
-        this.list = searchList
-        this.list.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
-      }
+      // if (searchList.length) {
+        this.actualColumns = searchList
+        this.actualColumns.forEach(item =>!this.searchList.includes(item.stud_id)? this.searchList.push(item.stud_id): null)
+      // }
     }
     else if (this.students)
-      this.list = this.students
+      this.actualColumns = this.list
   }
 
   openAll() {
