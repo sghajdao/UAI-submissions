@@ -1,3 +1,3 @@
 export const environment = {
-    urlRequest: 'http://10.0.0.63:9393/api/'
+    urlRequest: 'http://192.168.1.139:9595/api/'
 };

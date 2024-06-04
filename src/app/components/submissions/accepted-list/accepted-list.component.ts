@@ -77,7 +77,7 @@ export class AcceptedListComponent implements OnChanges {
       let sectionsList: Cus_special_request_sub[] = []
       this.actualColumns = this.actualColumns!.length? this.actualColumns: this.list
       for (let item of this.actualColumns!) {
-        if (item.section && item.section.toString().startsWith(this.searchBySection))
+        if (item.section && item.section.toString().startsWith(this.searchBySection.toUpperCase()))
           sectionsList.push(item)
       }
       this.actualColumns = sectionsList

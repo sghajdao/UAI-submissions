@@ -5,29 +5,36 @@
                 Searh excpansion
             </mat-panel-title>
             <mat-panel-description>
-                Search by student id or course
+                Search by student id or course or school
                 <mat-icon>search</mat-icon>
             </mat-panel-description>
         </mat-expansion-panel-header>
         <!-- <p>This is the primary content of the panel.</p> -->
         <div class="inputs">
-            <input class="form-control me-2 id" [matAutocomplete]="auto1" type="search" placeholder="Search by id" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchById" (ngModelChange)="getIdOptions()">
+            <input class="form-control me-2 id" [matAutocomplete]="auto1" type="search" placeholder="Search by id" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchById" (ngModelChange)="getIdOptions()" (keyup.enter)="onSearch()">
             <mat-autocomplete #auto1="matAutocomplete">
                 <div *ngFor="let item of idsList">
                   <mat-option [value]="item">{{item}}</mat-option>
                 </div>
             </mat-autocomplete>
 
-            <input class="form-control me-2 id" [matAutocomplete]="auto2" type="search" placeholder="Search by course code" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchByCourse" (ngModelChange)="getCourseOptions()">
+            <input class="form-control me-2 id" [matAutocomplete]="auto2" type="search" placeholder="Search by course code" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchByCourse" (ngModelChange)="getCourseOptions()" (keyup.enter)="onSearch()">
             <mat-autocomplete #auto2="matAutocomplete">
                 <div *ngFor="let item of coursesList">
                   <mat-option [value]="item">{{item}}</mat-option>
                 </div>
             </mat-autocomplete>
+
+            <input class="form-control me-2 id" [matAutocomplete]="auto3" type="search" placeholder="Search by school" aria-label="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchBySchool" (ngModelChange)="getSchoolOptions()" (keyup.enter)="onSearch()">
+            <mat-autocomplete #auto3="matAutocomplete">
+                <div *ngFor="let item of schoolsList">
+                  <mat-option [value]="item">{{item}}</mat-option>
+                </div>
+            </mat-autocomplete>
             <div style="margin-right: 0;">
                 <button mat-button color="primary" (click)="onSearch()">
-                    <span *ngIf="searchById || searchByCourse">Search</span>
-                    <span *ngIf="!searchById && !searchByCourse">Refresh</span>
+                    <span *ngIf="searchById || searchByCourse || searchBySchool">Search</span>
+                    <span *ngIf="!searchById && !searchByCourse && !searchBySchool">Refresh</span>
                 </button>
             </div>
         </div>

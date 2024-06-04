@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cus_special_request_sub } from '../../models/cus_special_request_sub';
 import { SubmissionsService } from '../../services/submissions.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-submissions',
@@ -10,7 +11,8 @@ import { SubmissionsService } from '../../services/submissions.service';
 export class SubmissionsComponent implements OnInit {
 
   constructor(
-    private service: SubmissionsService
+    private service: SubmissionsService,
+    private sanitizer: DomSanitizer
   ) {}
 
   accepted: boolean = true
@@ -18,9 +20,34 @@ export class SubmissionsComponent implements OnInit {
   acceptedList: boolean = true
   rejectedList: boolean = false
   list: Cus_special_request_sub[] = []
+  fileUrl?: any
 
   ngOnInit(): void {
     this.setList()
+  }
+
+  convertToCsv(data: any[]): string {
+    if (!data || !data.length) {
+      return '';
+    }
+
+    const keys = Object.keys(data[0]);
+    const csvContent = data.map(row => {
+      return keys.map(key => row[key]).join(',');
+    });
+
+    return [keys.join(','), ...csvContent].join('\n');
+  }
+
+  downloadCsv(): void {
+    const csvData = this.convertToCsv(this.list);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'table-data.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 
   toAccepted(event: boolean) {
@@ -53,18 +80,20 @@ export class SubmissionsComponent implements OnInit {
 
   setList() {
     this.service.getData().subscribe({
-      next: data => {this.list = data;console.log(data)}
+      next: data => {this.list = data}
     })
   }
 
-  onSearch(event: {id: string, course: string}) {
-    if (event.id && event.course)
-      this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id) && item.crscode.startsWith(event.course))
-    else if (!event.id)
-      this.list = this.list.filter(item => item.crscode.startsWith(event.course))
-    else if (!event.course)
+  onSearch(event: {id: string, course: string, school: string}) {
+    // if (event.id && event.course && event.school)
+    //   this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id) && item.crscode.startsWith(event.course) && item.school.startsWith(event.school))
+    if (event.id.length)
       this.list = this.list.filter(item => item.stud_id.toString().startsWith(event.id))
-    if (!this.list.length)
+    if (event.course.length)
+      this.list = this.list.filter(item => item.crscode.startsWith(event.course))
+    if (event.school.length)
+      this.list = this.list.filter(item => item.school.startsWith(event.school))
+    if (!this.list.length || (event.id === '-1' && event.course === '-1' && event.school === '-1'))
       this.setList()
   }
 }

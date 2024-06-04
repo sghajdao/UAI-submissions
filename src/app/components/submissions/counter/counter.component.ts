@@ -58,7 +58,6 @@ export class CounterComponent implements OnChanges {
 
   getOptions() {
     this.searchList = []
-    console.log(this.search)
     if (this.search && this.students) {
       for (let item of this.students) {
         if (item.stud_id.toString().startsWith(this.search) && !this.searchList.includes(item.stud_id.toString()))
@@ -100,7 +99,7 @@ export class CounterComponent implements OnChanges {
               show: false // show the percentage
             },
             total: {
-              label: data != Math.floor(data)? data.toFixed(2) + "% " + "from " + this.students?.length: data + "% " + "from " + this.students?.length,
+              label: !Number.isInteger(data)? data.toFixed(2) + "% " + "from " + this.students?.length: data + "% " + "from " + this.students?.length,
               show:true,
               fontSize: '22px',
               color: color
